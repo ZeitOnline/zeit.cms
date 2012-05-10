@@ -1,5 +1,5 @@
 # coding: utf8
-# Copyright (c) 2009-2011 gocept gmbh & co. kg
+# Copyright (c) 2009-2012 gocept gmbh & co. kg
 # See also LICENSE.txt
 
 import zeit.cms.testing
@@ -10,11 +10,11 @@ class TestTypeChangeBox(zeit.cms.testing.SeleniumTestCase):
     def test_box_should_scroll(self):
         s = self.selenium
         self.open('/repository/online/2007/01/Somalia')
-        s.getEval('window.resizeTo(1000, 300)')
+        s.selenium.set_window_size(1000, 300)
         s.waitForEval('window.outerHeight', '300')
+        s.click('xpath=//a[@title="Additional actions"]')
         s.click('link=Change type')
         s.waitForElementPresent('css=.lightbox-full')
-        element = "this.browserbot.findElement('css=.lightbox-full')"
-        scroll = s.getEval(element + '.scrollHeight')
-        offset = s.getEval(element + '.offsetHeight')
+        scroll = s.getAttribute('css=.lightbox-full@scrollHeight')
+        offset = s.getAttribute('css=.lightbox-full@offsetHeight')
         self.assertGreater(scroll, offset)
