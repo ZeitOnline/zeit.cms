@@ -11,8 +11,8 @@ class TestKeywordWidget(zeit.cms.testing.SeleniumTestCase):
         s = self.selenium
 
         self.open('/repository/testcontent')
-        s.click('new_keyword')
         s.click('link=Checkout')
+        s.click('new_keyword')
         s.waitForElementPresent('css=.keyword-input')
         offset = s.getAttribute('css=.keyword-input@offsetLeft')
         self.assertTrue(offset > 0)
