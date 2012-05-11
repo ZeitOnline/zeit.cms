@@ -4,7 +4,8 @@ zeit.cms changes
 1.53.5 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Made a number of tests forward-compatible with a webdriver-based
+  gocept.selenium.
 
 
 1.53.4 (2012-03-15)
