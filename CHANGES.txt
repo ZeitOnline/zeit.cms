@@ -4,6 +4,8 @@ zeit.cms changes
 1.53.5 (unreleased)
 -------------------
 
+- Fold IContentAdder and IAddLocation into zeit.cms from zeit.addcentral
+  (for #10692).
 - Made a number of tests forward-compatible with a webdriver-based
   gocept.selenium.
 
