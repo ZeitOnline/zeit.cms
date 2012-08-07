@@ -88,23 +88,34 @@ def XMLReference(context):
         metadata,
         zeit.cms.content.interfaces.IXMLReference, name='image')
     image.set('base-id', context.uniqueId)
-
-    type = ''
-    for sub_image_name in context:
-        if '.' not in sub_image_name:
-            continue
-        base, ext = sub_image_name.rsplit('.', 1)
-        if base.endswith('x140'):
-            # This is deciding
-            type = ext
-            break
-        if not type:
-            # Just remember the first type
-            type = ext
-
-    image.set('type', type)
+    image.set('type', get_group_type(context))
     # The image reference can be seen like an element in a feed. Let the magic
     # update the xml node.
     updater = zeit.cms.content.interfaces.IXMLReferenceUpdater(context)
     updater.update(image)
     return image
+
+
+def get_group_type(group):
+    """Return the image group type
+
+    The image group type is used in XSLT to detuct the name of scaled images
+    from the image group name (folder), the desired scale (XxY) and the type::
+
+        folder-XxY.type
+
+    Since the master image is not relevant at all for XSLT this function tries
+    to ignore it for the type whenever this is possible.
+
+    """
+
+    type = ''
+    is_master = False
+    for sub_image_name in group:
+        if '.' not in sub_image_name:
+            continue
+        base, ext = sub_image_name.rsplit('.', 1)
+        type = ext
+        if sub_image_name != group.master_image:
+            break
+    return type

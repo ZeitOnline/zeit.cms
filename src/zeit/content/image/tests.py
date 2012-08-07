@@ -2,8 +2,9 @@
 # See also LICENSE.txt
 
 from __future__ import with_statement
+import mock
 import pkg_resources
-import unittest
+import unittest2 as unittest
 import zeit.cms.interfaces
 import zeit.cms.repository.interfaces
 import zeit.cms.testing
@@ -55,6 +56,32 @@ class TestImageMetadataAcquisition(zeit.cms.testing.FunctionalTestCase):
         self.assertEqual(None, metadata.title)
 
 
+class TestGroupType(unittest.TestCase):
+
+    def ggt(self, items, master=None):
+        from zeit.content.image.imagegroup import get_group_type
+        group = mock.Mock()
+        group.__iter__ = lambda x:iter(items)
+        group.master_image = master
+        return get_group_type(group)
+
+    def test_master_image_should_not_be_used_for_type(self):
+        self.assertEqual('e2', self.ggt(['a.e1', 'b.e2', 'c.e3'],
+                                        master='a.e1'))
+
+    def test_no_master_image_should_chooses_first_image(self):
+        self.assertEqual('e1', self.ggt(['a.e1', 'b.e2', 'c.e3']))
+
+    def test_only_master_image_should_choose_master_image(self):
+        self.assertEqual('e1', self.ggt(['a.e1'], master='a.e1'))
+
+    def test_items_without_extensions_should_be_ignored(self):
+        self.assertEqual('e2', self.ggt(['a', 'b.e2', 'c.e3']))
+
+    def test_no_items_should_return_empty_type(self):
+        self.assertEqual('', self.ggt([]))
+
+
 def test_suite():
     suite = unittest.TestSuite()
     suite.addTest(zeit.cms.testing.FunctionalDocFileSuite(
@@ -65,6 +92,7 @@ def test_suite():
         'masterimage.txt',
         layer=ImageLayer))
     suite.addTest(unittest.makeSuite(TestImageMetadataAcquisition))
+    suite.addTest(unittest.makeSuite(TestGroupType))
     return suite
 
 
