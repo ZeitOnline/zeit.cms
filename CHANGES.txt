@@ -6,6 +6,8 @@ zeit.cms changes
 
 - Fix image group type to ignore master image (#11116).
 
+- Added a teaser kicker field to the common metadata.
+
 
 1.54.0 (2012-07-13)
 -------------------
