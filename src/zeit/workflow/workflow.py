@@ -43,7 +43,7 @@ class ContentWorkflow(zeit.workflow.timebased.TimeBasedWorkflow):
     def can_publish(self):
         if self.urgent:
             return True
-        if all([self.edited, self.corrected, self.refined, self.images_added]):
+        if self.edited and self.corrected:
             return True
         return False
 

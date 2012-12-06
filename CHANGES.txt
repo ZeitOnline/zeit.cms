@@ -4,6 +4,9 @@ zeit.cms changes
 1.54.1 (unreleased)
 -------------------
 
+- Don't consider ``refined`` and ``images_added`` as a precondition for
+  publishing (#11717).
+
 - Fix image group type to ignore master image (#11116).
 
 - Added a teaser kicker field to the common metadata.
