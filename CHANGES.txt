@@ -1,7 +1,7 @@
 zeit.cms changes
 ================
 
-2.54.4 (unreleased)
+2.54.4 (2015-08-24)
 -------------------
 
 - Don't prematurely unlock during cycle() while publishing, hold lock until the
