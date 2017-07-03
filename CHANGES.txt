@@ -1,6 +1,12 @@
 zeit.cms changes
 ================
 
+2.103.1 (unreleased)
+--------------------
+
+- ZON-4065: Install separate task queue for brightcove imports
+
+
 2.103.0 (2017-06-27)
 --------------------
 
